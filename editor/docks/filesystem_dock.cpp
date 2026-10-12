@@ -487,7 +487,7 @@ void FileSystemDock::_update_tree(const Vector<String> &p_uncollapsed_paths, boo
 	}
 
 	if (p_scroll_to_selected) {
-		callable_mp((Tree *)tree, &Tree::ensure_cursor_is_visible).call_deferred();
+		callable_mp(static_cast<Tree *>(tree), &Tree::ensure_cursor_is_visible).call_deferred();
 	}
 
 	updating_tree = false;
@@ -570,7 +570,7 @@ void FileSystemDock::_update_display_mode(bool p_force) {
 				_update_tree(get_uncollapsed_paths(), false, true, selected_paths);
 				_update_file_list(!selected_files.is_empty(), selected_files);
 			} else {
-				callable_mp((Tree *)tree, &Tree::ensure_cursor_is_visible).call_deferred();
+				callable_mp(static_cast<Tree *>(tree), &Tree::ensure_cursor_is_visible).call_deferred();
 
 				// Always update to avoid broken icons, as previous updates
 				// could have happened before the dock was inside the tree.
@@ -859,7 +859,7 @@ void FileSystemDock::_navigate_to_path(const String &p_path, bool p_select_in_fa
 			files->grab_focus(true);
 		}
 	}
-	callable_mp((Tree *)tree, &Tree::ensure_cursor_is_visible).call_deferred();
+	callable_mp(static_cast<Tree *>(tree), &Tree::ensure_cursor_is_visible).call_deferred();
 }
 
 bool FileSystemDock::_update_filtered_items(TreeItem *p_tree_item) {
@@ -4454,7 +4454,7 @@ void FileSystemDock::load_layout_from_config(const Ref<ConfigFile> &p_layout, co
 						if (first_selection) {
 							first_selection = false;
 							current_path = curr_ti->get_metadata(0);
-							callable_mp((Tree *)tree, &Tree::ensure_cursor_is_visible).call_deferred();
+							callable_mp(static_cast<Tree *>(tree), &Tree::ensure_cursor_is_visible).call_deferred();
 						}
 
 						dirs_to_select.erase(path);
